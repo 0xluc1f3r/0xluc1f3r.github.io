@@ -1,14 +1,595 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Reverse Engineering Tools</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0xLUC1F3R | GitHub Portfolio</title>
+    <style>
+        /* Cyberpunk Matrix Theme */
+        :root {
+            --neon-green: #0f0;
+            --neon-red: #f00;
+            --neon-blue: #08f;
+            --dark-bg: #000;
+            --darker-bg: #111;
+			--off-white: #f0f0f0;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: var(--off-white);
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Fixed Banner */
+        .banner-container {
+            background: rgba(0, 15, 0, 0.7);
+            padding: 0px 0;
+            border-bottom: 1px solid var(--off-white);
+            margin-bottom: 30px;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 100%;
+        }
+        
+		.banner-content {
+			overflow: hidden;
+			white-space: nowrap;
+			width: 100%;
+			position: relative;
+			background: rgba(0, 15, 0, 0.7);
+			padding: 10px 0;
+			border-bottom: 1px solid var(--off-white);
+			margin-bottom: 0px;
+		}
+        
+		.banner-text {
+			display: inline-block;
+			color: var(--off-white);
+			text-shadow: 0 0 5px var(--off-white);
+			font-weight: bold;
+			font-size: 1.2em;
+			padding-right: 0.25rem;
+		}
+		
+		.banner-track {
+			display: inline-block;
+			white-space: nowrap;
+			animation: scrollBanner 25s linear infinite;
+		}
+        
+		@keyframes scrollBanner {
+			0% {
+				transform: translateX(0%);
+			}
+			100% {
+				transform: translateX(-50%);
+			}
+		}
+        
+        /* ASCII Art Styling */
+        .ascii-art {
+            color: var(--off-white);
+            text-shadow: 0 0 5px var(--off-white);
+            font-family: 'Courier New', monospace;
+            white-space: pre;
+            text-align: center;
+            line-height: 1.1;
+            margin: 20px 0;
+            font-size: 12px;
+        }
+        
+        /* Matrix Rain Canvas - More visible */
+        #matrix-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+            flex: 1;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 1px dashed var(--off-white);
+            padding-bottom: 20px;
+        }
+        
+        .tagline {
+            color: var(--off-white);
+            font-size: 1.2em;
+        }
+        
+        /* Profile Section */
+        .profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            background: rgba(0, 10, 0, 0.7);
+            border: 1px solid var(--off-white);
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+        }
+        
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 2px solid var(--off-white);
+            margin-right: 30px;
+            object-fit: cover;
+        }
+        
+        .profile-info {
+            flex: 1;
+        }
+        
+        .profile-name {
+            color: var(--off-white);
+            margin: 0;
+            font-size: 1.8em;
+        }
+        
+        .profile-bio {
+            color: #aaa;
+            margin: 10px 0;
+        }
+        
+        .profile-stats {
+            display: flex;
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        .stat {
+            display: flex;
+            align-items: center;
+        }
+        
+        .stat-icon {
+            margin-right: 5px;
+            color: var(--off-white);
+        }
+        
+        /* Repositories Section */
+        .section {
+            background: rgba(0, 10, 0, 0.7);
+            border: 1px solid var(--off-white);
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+        }
+        
+        .section-title {
+            color: var(--off-white);
+            border-bottom: 1px solid var(--off-white);
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        
+        /* Repository Grid */
+        .repo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+			align-items: stretch;
+        }
+        
+		.repo-card {
+			background: rgba(0, 20, 0, 0.8);
+			border: 1px solid var(--off-white);
+			border-radius: 5px;
+			padding: 12px;
+			font-size: 0.9em;
+			box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+			min-width: 0;
+			overflow: hidden;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			height: 150px; /* adjust as needed */
+			/* Add these properties to fix text wrapping */
+			word-wrap: break-word;
+			overflow-wrap: break-word;
+			white-space: normal;
+		}
+        
+        .repo-card:hover {
+            background: rgba(0, 255, 0, 0.1);
+            border-left: 3px solid var(--off-white);
+            transform: translateY(-5px);
+        }
+        
+        .repo-name {
+            color: var(--off-white);
+            margin: 0;
+            font-size: 1.3em;
+        }
+        
+        .repo-name a {
+            color: inherit;
+            text-decoration: none;
+        }
+        
+        .repo-name a:hover {
+            text-decoration: underline;
+        }
+        
+        .repo-desc {
+            color: #aaa;
+            margin: 10px 0;
+            flex: 1;
+        }
+        
+        .repo-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 0.9em;
+            color: #777;
+        }
+        
+        .repo-language {
+            display: flex;
+            align-items: center;
+        }
+        
+        .language-color {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+        
+        /* Footer - Fixed positioning */
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #555;
+            font-size: 0.8em;
+            background: rgba(0, 15, 0, 0.7);
+            border-top: 1px dashed var(--off-white);
+            margin-top: auto;
+            width: 100%;
+        }
+        
+        /* Loading Animation */
+        .loading {
+            text-align: center;
+            padding: 30px;
+            color: var(--off-white);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .profile {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .profile-pic {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+            
+            .profile-stats {
+                justify-content: center;
+            }
+            
+            .repo-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .ascii-art {
+                font-size: 8px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to My Tools Page!</h1>
-    <p>Here are some tools I've made:</p>
-    <ul>
-        <li><a href="https://github.com/username/tool1">Tool 1</a></li>
-        <li><a href="https://github.com/username/tool2">Tool 2</a></li>
-    </ul>
+    <!-- More visible Matrix Rain Effect -->
+    <canvas id="matrix-rain"></canvas>
+    
+    <!-- Fixed Scrolling Banner -->
+    <div class="banner-container">
+		<div class="banner-content">
+		  <div class="banner-track">
+			<span class="banner-text">★★★ 0xLUC1F3R ★★★ OPEN SOURCE DEVELOPER ★★★ REVERSE ENGINEERING ★★★ GAME HACKING ★★★ SECURITY RESEARCH </span>
+			<span class="banner-text">★★★ 0xLUC1F3R ★★★ OPEN SOURCE DEVELOPER ★★★ REVERSE ENGINEERING ★★★ GAME HACKING ★★★ SECURITY RESEARCH </span>
+		  </div>
+		</div>
+
+    
+    <div class="container">
+        <header>
+            <div class="ascii-art">
+   ____            _____  _____  _____   ______   __    ________  ______   _______     
+ .'    '.         |_   _||_   _||_   _|.' ___  | /  |  |_   __  |/ ____ `.|_   __ \    
+|  .--.  | _   __   | |    | |    | | / .'   \_| `| |    | |_ \_|`'  __) |  | |__) |   
+| |    | |[ \ [  ]  | |   _| '    ' | | |         | |    |  _|   _  |__ '.  |  __ /    
+|  `--'  | > '  <  _| |__/ |\ \__/ /  \ `.___.'\ _| |_  _| |_   | \____) | _| |  \ \_  
+ '.____.' [__]`\_]|________| `.__.'    `.____ .'|_____||_____|   \______.'|____| |___|
+            </div>
+        </header>
+        
+        <!-- Profile Section -->
+        <div class="profile">
+            <img src="https://avatars.githubusercontent.com/u/150076905?v=4" alt="0xLUC1F3R" class="profile-pic" id="github-avatar">
+            <div class="profile-info">
+                <h2 class="profile-name" id="github-name">0xLUC1F3R</h2>
+                <p class="profile-bio" id="github-bio">Security Researcher | Reverse Engineer | Game Hacker</p>
+                <div class="profile-stats">
+                    <div class="stat">
+                        <span class="stat-icon">📌</span>
+                        <span id="github-location">The Underworld</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-icon">🔗</span>
+                        <a href="https://github.com/0xluc1f3r" style="color: var(--off-white);" target="_blank">github.com/0xluc1f3r</a>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-icon">📦</span>
+                        <span id="github-repos">Loading...</span> repos
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Favorites Section -->
+        <div class="section">
+            <h2 class="section-title">Favorites</h2>
+            <div class="repo-grid" id="favorite-repos">
+                <div class="loading">Loading favorite repositories...</div>
+            </div>
+        </div>
+        
+        <!-- Original Repositories Section -->
+        <div class="section">
+            <h2 class="section-title">Repositories</h2>
+            <div class="repo-grid" id="original-repos">
+                <div class="loading">Loading repositories...</div>
+            </div>
+        </div>
+        
+        <!-- Forked Repositories Section -->
+        <div class="section">
+            <h2 class="section-title">Forked Repositories</h2>
+            <div class="repo-grid" id="forked-repos">
+                <div class="loading">Loading forked repositories...</div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>0xLUC1F3R &copy; <span id="current-year"></span> | Last updated: <span id="last-updated"></span></p>
+    </footer>
+    
+    <script>
+        // More visible Matrix Rain Effect
+        const canvas = document.getElementById('matrix-rain');
+        const ctx = canvas.getContext('2d');
+        
+        // Set canvas to full window
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        // Characters - Katakana + Latin + Numbers
+        const chars = "アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        
+        // Calculate columns based on font size
+        const fontSize = 14;
+        const columns = Math.floor(canvas.width / fontSize);
+        
+        // Initialize drops
+        const drops = [];
+        for (let i = 0; i < columns; i++) {
+            drops[i] = Math.random() * -100; // Start at random positions above viewport
+        }
+        
+        // Draw function
+        function drawMatrix() {
+            // Semi-transparent black background
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Set font and color
+            ctx.fillStyle = '#0f0';
+            ctx.font = fontSize + 'px monospace';
+            
+            // Draw characters
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars.charAt(Math.floor(Math.random() * chars.length));
+                const x = i * fontSize;
+                const y = drops[i] * fontSize;
+                
+                ctx.fillText(text, x, y);
+                
+                // Reset drop to top when it reaches bottom
+                if (y > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                
+                drops[i]++;
+            }
+        }
+        
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+        
+        // Animation loop
+        setInterval(drawMatrix, 33); // ~30fps
+        
+        // GitHub API Integration
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set current year
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+            
+            // Set last updated date
+            document.getElementById('last-updated').textContent = new Date().toLocaleDateString();
+            
+            // Fetch GitHub profile data with cache busting
+            fetch('https://api.github.com/users/0xluc1f3r?' + new Date().getTime())
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('github-name').textContent = data.name || '0xLUC1F3R';
+                    document.getElementById('github-bio').textContent = data.bio || 'Security Researcher | Reverse Engineer | Game Hacker';
+                    document.getElementById('github-repos').textContent = data.public_repos || '0';
+                    if (data.location) document.getElementById('github-location').textContent = data.location;
+                    
+                    // Update avatar with fresh version (prevent caching)
+                    const avatar = document.getElementById('github-avatar');
+                    avatar.src = data.avatar_url + '?t=' + new Date().getTime();
+                })
+                .catch(error => {
+                    console.error('Error fetching GitHub profile:', error);
+                });
+
+			// Fetch GitHub repositories
+			fetch('https://api.github.com/users/0xluc1f3r/repos?sort=updated&direction=desc&' + new Date().getTime())
+				.then(response => response.json())
+				.then(repos => {
+					const favoriteReposContainer = document.getElementById('favorite-repos');
+					const originalReposContainer = document.getElementById('original-repos');
+					const forkedReposContainer = document.getElementById('forked-repos');
+					
+					// Clear loading messages
+					favoriteReposContainer.innerHTML = '';
+					originalReposContainer.innerHTML = '';
+					forkedReposContainer.innerHTML = '';
+					
+					// Filter out the repository that hosts this page
+					const filteredRepos = repos.filter(repo => !['0xluc1f3r.github.io', 'oxluelf3r.github.io'].includes(repo.name));
+					
+					// Manually specified favorite repositories
+					const favoriteRepoNames = [
+						"hpp-leak-rework-vs2022"
+					];
+					
+					// First pass: Identify all favorites
+					const favoriteRepos = filteredRepos.filter(repo => favoriteRepoNames.includes(repo.name));
+					
+					// Second pass: Process remaining repos (excluding favorites)
+					const nonFavoriteRepos = filteredRepos.filter(repo => !favoriteRepoNames.includes(repo.name));
+					const originalRepos = nonFavoriteRepos.filter(repo => !repo.fork);
+					const forkedRepos = nonFavoriteRepos.filter(repo => repo.fork);
+					
+					// Display favorite repos
+					if (favoriteRepos.length > 0) {
+						favoriteRepos.forEach(repo => {
+							favoriteReposContainer.appendChild(createRepoCard(repo));
+						});
+					} else {
+						favoriteReposContainer.innerHTML = '<p>No favorite repositories found.</p>';
+					}
+					
+					// Display original repos
+					if (originalRepos.length > 0) {
+						originalRepos.forEach(repo => {
+							originalReposContainer.appendChild(createRepoCard(repo));
+						});
+					} else {
+						originalReposContainer.innerHTML = '<p>No original repositories found.</p>';
+					}
+					
+					// Display forked repos
+					if (forkedRepos.length > 0) {
+						forkedRepos.forEach(repo => {
+							forkedReposContainer.appendChild(createRepoCard(repo));
+						});
+					} else {
+						forkedReposContainer.innerHTML = '<p>No forked repositories found.</p>';
+					}
+				})
+				.catch(error => {
+					console.error('Error fetching GitHub repositories:', error);
+					document.getElementById('favorite-repos').innerHTML = '<p>Error loading repositories. Please try again later.</p>';
+					document.getElementById('original-repos').innerHTML = '<p>Error loading repositories. Please try again later.</p>';
+					document.getElementById('forked-repos').innerHTML = '<p>Error loading repositories. Please try again later.</p>';
+				});
+        });
+        
+        // Function to create a repository card
+        function createRepoCard(repo) {
+            const card = document.createElement('div');
+            card.className = 'repo-card';
+            
+            // Language color (if available)
+            let languageColor = '';
+            let languageDisplay = '';
+            if (repo.language) {
+                languageColor = getLanguageColor(repo.language);
+                languageDisplay = `
+                    <div class="repo-language">
+                        <span class="language-color" style="background-color: ${languageColor};"></span>
+                        ${repo.language}
+                    </div>
+                `;
+            }
+            
+            card.innerHTML = `
+                <h3 class="repo-name">
+                    <a href="${repo.html_url}" target="_blank">${repo.name}</a>
+                </h3>
+                <p class="repo-desc">${repo.description || 'No description provided.'}</p>
+                <div class="repo-meta">
+                    ${languageDisplay}
+                    <div>⭐ ${repo.stargazers_count}</div>
+                    <div>📌 ${repo.forks_count}</div>
+                    <div>🔄 ${new Date(repo.updated_at).toLocaleDateString()}</div>
+                </div>
+            `;
+            
+            return card;
+        }
+        
+        // Function to get color for programming languages
+        function getLanguageColor(language) {
+            const colors = {
+                'C++': '#f34b7d',
+                'C': '#555555',
+                'C#': '#178600',
+                'Python': '#3572A5',
+                'JavaScript': '#f1e05a',
+                'TypeScript': '#2b7489',
+                'Java': '#b07219',
+                'Go': '#00ADD8',
+                'Rust': '#dea584',
+                'PHP': '#4F5D95',
+                'Shell': '#89e051',
+                'HTML': '#e34c26',
+                'CSS': '#563d7c',
+                'Assembly': '#6E4C13',
+                'PowerShell': '#012456',
+                'Lua': '#000080'
+            };
+            
+            return colors[language] || '#cccccc';
+        }
+    </script>
 </body>
 </html>

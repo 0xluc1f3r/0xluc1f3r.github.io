@@ -282,111 +282,115 @@
             color: var(--off-white);
         }
         
-        /* Responsive */
-        @media (max-width: 768px) {
-            .profile {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .profile-pic {
-                margin-right: 0;
-                margin-bottom: 20px;
-            }
-            
-            .profile-stats {
-                flex-direction: column;
-                align-items: center;
-                gap: 10px;
-            }
-            
-            .repo-grid {
-                grid-template-columns: 1fr;
-            }
-            
+		/* Responsive */
+		@media (max-width: 768px) {
+			.profile {
+				flex-direction: column;
+				text-align: center;
+			}
+			
+			.profile-pic {
+				margin-right: 0;
+				margin-bottom: 20px;
+			}
+			
+			.profile-stats {
+				flex-direction: column;
+				align-items: center;
+				gap: 10px;
+			}
+			
+			.repo-grid {
+				grid-template-columns: 1fr;
+			}
+			
 			.ascii-art {
 				font-size: 8px;
 				white-space: pre;
 				overflow-x: auto;
 				display: block;
 				line-height: 1.2;
+				transform: scale(0.85);
 				transform-origin: top center;
+				width: 100%;
+				margin: 10px auto;
+				padding: 0 5px;
 			}
-}
-            
-            .banner-text {
-                font-size: 0.9em;
-            }
-            
-            .container {
-                padding: 10px;
-            }
-            
-            .section {
-                padding: 15px;
-            }
-            
-            .repo-card {
-                height: auto;
-                min-height: 120px;
-            }
-            
-            .repo-meta {
-                flex-wrap: wrap;
-                gap: 10px;
-                justify-content: center;
-            }
-            
-            .profile-name {
-                font-size: 1.5em;
-            }
-            
-            .profile-bio {
-                font-size: 0.9em;
-            }
-            
-            .section-title {
-                font-size: 1.3em;
-            }
-        }
-        
-        /* Extra small devices (phones, 480px and down) */
-        @media (max-width: 480px) {
-            .ascii-art {
-                font-size: 6px;
-            }
-            
-            .banner-text {
-                font-size: 0.7em;
-            }
-            
-            .profile-pic {
-                width: 90px;
-                height: 90px;
-            }
-            
-            .repo-card {
-                padding: 10px;
-            }
-            
-            .repo-name {
-                font-size: 1.1em;
-            }
-            
-            .repo-desc {
-                font-size: 0.8em;
-            }
-            
-            .repo-meta {
-                font-size: 0.8em;
-            }
-            
-            footer {
-                padding: 15px;
-                font-size: 0.7em;
-            }
-        }
-    </style>
+			
+			.banner-text {
+				font-size: 0.9em;
+			}
+			
+			.container {
+				padding: 10px;
+			}
+			
+			.section {
+				padding: 15px;
+			}
+			
+			.repo-card {
+				height: auto;
+				min-height: 120px;
+			}
+			
+			.repo-meta {
+				flex-wrap: wrap;
+				gap: 10px;
+				justify-content: center;
+			}
+			
+			.profile-name {
+				font-size: 1.5em;
+			}
+			
+			.profile-bio {
+				font-size: 0.9em;
+			}
+			
+			.section-title {
+				font-size: 1.3em;
+			}
+		}
+
+		/* Extra small devices (phones, 480px and down) */
+		@media (max-width: 480px) {
+			.ascii-art {
+				font-size: 6px;
+				transform: scale(0.75);
+			}
+			
+			.banner-text {
+				font-size: 0.7em;
+			}
+			
+			.profile-pic {
+				width: 90px;
+				height: 90px;
+			}
+			
+			.repo-card {
+				padding: 10px;
+			}
+			
+			.repo-name {
+				font-size: 1.1em;
+			}
+			
+			.repo-desc {
+				font-size: 0.8em;
+			}
+			
+			.repo-meta {
+				font-size: 0.8em;
+			}
+			
+			footer {
+				padding: 15px;
+				font-size: 0.7em;
+			}
+		}
+   </style>
 </head>
 <body>
     <!-- More visible Matrix Rain Effect -->
